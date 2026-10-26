@@ -40,7 +40,7 @@ As in the other suite forks (rdf-tests-array, json-ld-api-array, shexTest-array)
 
 | Suite | Test | Why |
 |---|---|---|
-| 1.0 | `core/path/path-strange-002` | it chose the list reading of the path node over its invalid inverse path; without the list only `sh:inversePath ( ex:p )` is left, a one-member sequence path, which SHACL does not allow (jena-array reads it leniently as `ex:p`; rudof-array panics, rdf-array#… below) |
+| 1.0 | `core/path/path-strange-002` | it chose the list reading of the path node over its invalid inverse path; without the list only `sh:inversePath ( ex:p )` is left, a one-member sequence path, which SHACL does not allow (jena-array reads it leniently as `ex:p`; rudof-array panics, [rdf-array#17](https://github.com/rdf-array/rdf-array/issues/17)) |
 | 1.2 | `core/node/memberShape-001`, `minListLength-001`, `maxListLength-001`, `uniqueMembers-001` | the focus nodes are IRIs (and `rdf:nil`) spelled as ladders; an IRI is never a sequence, so every focus node violates and the tests no longer tell lists apart. Counterparts in data-shapes-contrib target sequence values |
 | 1.2 | `core/node/in-003`, `core/node/xone-003` | `sh:in rdf:nil` / `sh:xone rdf:nil` are not lists, so the shapes graph is ill-formed. Counterparts with `sh:in ()` / `sh:xone ()` are in data-shapes-contrib. (Upstream, in-003 also does not parse: the `shsh:` prefix is undeclared, and its `sh:property` names `shsh:inSubjectsShapeXonePropertyShape`, which is not defined.) |
 
@@ -58,7 +58,9 @@ against themselves (`tests/core/complex/shacl-shacl-data-shapes.ttl`; the SHACL 
   for most of it), `shsh:PathListWithAtLeast2Members` is `sh:minListLength 2`, and `_:PathPath` no longer walks lists.
 
 The `core/complex/shacl-shacl` tests (shacl-shacl validating itself) are unchanged in their expectation,
-`sh:conforms true`, and carry a comment. Checked with jena-array: all four files conform to themselves, and
+`sh:conforms true`, and carry a comment and `mf:requires ra:ShaclListConstraints`: a processor without SHACL 1.2's
+list constraints ignores `sh:memberShape` and `sh:minListLength`, the sequence-path branch of `shsh:PathNodeShape`
+then matches every path, and the `sh:xone` over path kinds fails (rudof-array, [rdf-array#17](https://github.com/rdf-array/rdf-array/issues/17)). Checked with jena-array: all four files conform to themselves, and
 both versions report a ladder as `sh:in`, a non-list `sh:or`, a one-member sequence path and a non-string
 `sh:languageIn` member, while a well-formed shape with nested sequence paths conforms.
 
@@ -72,6 +74,9 @@ both versions report a ladder as `sh:in`, a non-list `sh:or`, a one-member seque
 
 ## Running
 
-jena-array's `jena-shacl` runs `data-shapes-test-suite/tests/core` (`TestShaclCoreWG`, in-tree copy in
-`jena-shacl/src/test/files/std`, refreshed by `update.sh` there) and skips `mf:status sht:rejected` tests;
-rudof-array's `shacl/tests/data-shapes` submodule points at this fork.
+- jena-array's `jena-shacl` runs `data-shapes-test-suite/tests/core` (`TestShaclCoreWG`, in-tree copy in
+  `jena-shacl/src/test/files/std`, refreshed by `std/update.sh`) and SHACL 1.2's eight list-constraint tests
+  (`TestShacl12Lists`), skipping `mf:status sht:rejected` tests with their reason: all pass, 5 skipped.
+- rudof-array's `shacl/tests/data-shapes` submodule points at this fork (branch `rdf-sequences`):
+  path-strange-001 and node-expr `list` pass; shacl-shacl and path-strange-002 are ignored with the reasons
+  above ([rdf-array#17](https://github.com/rdf-array/rdf-array/issues/17)).
