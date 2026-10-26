@@ -33,6 +33,7 @@ shsh:inSubjectsShapeInPropertyShape
     ) ;
 .
 <in-003>
+  rdfs:comment "rdf-array: rejected: sh:in rdf:nil is not a list under SHACL-array (rdf:nil is an IRI; the empty list is the sequence ()), which makes the shapes graph ill-formed. The counterpart with sh:in () is in data-shapes-contrib" ;
   rdf:type sht:Validate ;
   rdfs:label "Test of sh:in at node shape 003" ;
   mf:action [
@@ -51,5 +52,5 @@ shsh:inSubjectsShapeInPropertyShape
           sh:value rdf:nil ;
         ] ;
     ] ;
-  mf:status sht:approved ;
+  mf:status sht:rejected ;
 .

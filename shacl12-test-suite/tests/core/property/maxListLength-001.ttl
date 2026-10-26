@@ -54,6 +54,7 @@ _:b1
 .
 
 <maxListLength-001>
+  rdfs:comment "rdf-array: rdf:nil is an IRI, not the empty list, so ex:person2 violates sh:maxListLength as a non-list; ex:person3's _:b1 is an rdf:first/rdf:rest ladder and violates as a non-list rather than as a list of three" ;
   rdf:type sht:Validate ;
   rdfs:label "Test of sh:maxListLength on property shape 001" ;
   mf:action [
@@ -80,6 +81,15 @@ _:b1
           sh:sourceConstraintComponent sh:MaxListLengthConstraintComponent ;
           sh:sourceShape ex:PersonShape-hobbies ;
           sh:value ex:notAList ;
+        ] ;
+      sh:result [
+          rdf:type sh:ValidationResult ;
+          sh:focusNode ex:person2 ;
+          sh:resultPath ex:hobbies ;
+          sh:resultSeverity sh:Violation ;
+          sh:sourceConstraintComponent sh:MaxListLengthConstraintComponent ;
+          sh:sourceShape ex:PersonShape-hobbies ;
+          sh:value rdf:nil ;
         ] ;
     ] ;
   mf:status sht:approved ;

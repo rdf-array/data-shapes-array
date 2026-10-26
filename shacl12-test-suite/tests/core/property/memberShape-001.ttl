@@ -56,6 +56,7 @@ _:b1
 .
 
 <memberShape-001>
+  rdfs:comment "rdf-array: _:b1 is an rdf:first/rdf:rest ladder, which is triples and not a SHACL list (a sequence term) under SHACL-array, so it violates sh:memberShape as a non-list and has no members to detail; the sh:detail is removed" ;
   rdf:type sht:Validate ;
   rdfs:label "Test of sh:memberShape at property shape 001" ;
   mf:action [
@@ -73,14 +74,6 @@ _:b1
           sh:sourceConstraintComponent sh:MemberShapeConstraintComponent ;
           sh:sourceShape ex:TestShape-testProperty ;
           sh:value _:b1 ;
-          sh:detail [
-            rdf:type sh:ValidationResult ;
-            sh:focusNode _:bc ;
-            sh:resultSeverity sh:Violation ;
-            sh:sourceConstraintComponent sh:NodeKindConstraintComponent ;
-            sh:sourceShape ex:IRIShape ;
-            sh:value _:bc ;
-          ] ;
         ] ;
     ] ;
   mf:status sht:approved ;

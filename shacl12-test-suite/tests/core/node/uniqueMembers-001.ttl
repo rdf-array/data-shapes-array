@@ -33,6 +33,7 @@ ex:list1
 .
 
 <uniqueMembers-001>
+  rdfs:comment "rdf-array: rejected: the focus nodes are IRIs (or rdf:nil) spelled as rdf:first/rdf:rest ladders; under SHACL-array an IRI is never a SHACL list (a sequence term), so every focus node violates and the test no longer tells conforming lists from others. The counterpart, targeting sequence values, is in data-shapes-contrib" ;
   rdf:type sht:Validate ;
   rdfs:label "Test of sh:uniqueMembers on node shape 001" ;
   mf:action [
@@ -74,5 +75,5 @@ ex:list1
           sh:value ex:notAList ;
         ] ;
     ] ;
-  mf:status sht:approved ;
+  mf:status sht:rejected ;
 .

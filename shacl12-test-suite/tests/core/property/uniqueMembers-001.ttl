@@ -55,6 +55,7 @@ _:b1
 .
 
 <uniqueMembers-001>
+  rdfs:comment "rdf-array: rdf:nil is an IRI, not the empty list, and _:b1 is an rdf:first/rdf:rest ladder, not a SHACL list (a sequence term): both violate sh:uniqueMembers as non-lists, so ex:person2 gains a result and ex:person3's has no member details" ;
   rdf:type sht:Validate ;
   rdfs:label "Test of sh:uniqueMembers on property shape 001" ;
   mf:action [
@@ -72,23 +73,15 @@ _:b1
           sh:sourceConstraintComponent sh:UniqueMembersConstraintComponent ;
           sh:sourceShape ex:PersonShape-preferences ;
           sh:value _:b1 ;
-          sh:detail [
-            rdf:type sh:ValidationResult ;
-            sh:focusNode ex:person3 ;
-            sh:resultPath ex:preferences ;
-            sh:resultSeverity sh:Violation ;
-            sh:sourceConstraintComponent sh:UniqueMembersConstraintComponent ;
-            sh:sourceShape ex:PersonShape-preferences ;
-            sh:value "coffee" ;
-          ], [
-            rdf:type sh:ValidationResult ;
-            sh:focusNode ex:person3 ;
-            sh:resultPath ex:preferences ;
-            sh:resultSeverity sh:Violation ;
-            sh:sourceConstraintComponent sh:UniqueMembersConstraintComponent ;
-            sh:sourceShape ex:PersonShape-preferences ;
-            sh:value "tea" ;
-          ]
+        ] ;
+      sh:result [
+          rdf:type sh:ValidationResult ;
+          sh:focusNode ex:person2 ;
+          sh:resultPath ex:preferences ;
+          sh:resultSeverity sh:Violation ;
+          sh:sourceConstraintComponent sh:UniqueMembersConstraintComponent ;
+          sh:sourceShape ex:PersonShape-preferences ;
+          sh:value rdf:nil ;
         ] ;
       sh:result [
           rdf:type sh:ValidationResult ;

@@ -35,43 +35,9 @@ shsh:
 shsh:ListShape
 	a sh:NodeShape ;
 	rdfs:label "List shape"@en ;
-	rdfs:comment "A shape describing well-formed RDF lists. Currently does not check for non-recursion (this could be expressed using SHACL-SPARQL)."@en ;
+	rdfs:comment "rdf-array: a SHACL list is a sequence term, ( ... ), and an rdf:first/rdf:rest ladder is triples, not a list (https://rdf-array.github.io/rdf-array/shacl-array.html). shsh:ListNodeShape, which described the cells of a ladder, is gone."@en ;
 	rdfs:seeAlso <https://www.w3.org/TR/shacl/#syntax-rule-SHACL-list> ;
-	sh:property [
-		sh:path [ sh:zeroOrMorePath rdf:rest ] ;
-		rdfs:comment "Each list member (including this node) must have the shape shsh:ListNodeShape."@en ;
-		sh:hasValue rdf:nil ;
-		sh:node shsh:ListNodeShape ;
-	] .
-
-shsh:ListNodeShape
-	a sh:NodeShape ;
-	rdfs:label "List node shape"@en ;
-	rdfs:comment "Defines constraints on what it means for a node to be a node within a well-formed RDF list. Note that this does not check whether the rdf:rest items are also well-formed lists as this would lead to unsupported recursion."@en ;
-	sh:or ( [
-				sh:hasValue rdf:nil ;
-        		sh:property [
-					sh:path rdf:first ;
-					sh:maxCount 0 ;
-				] ;
-				sh:property [
-					sh:path rdf:rest ;
-					sh:maxCount 0 ;
-				] ;
-			]
-			[
-				sh:not [ sh:hasValue rdf:nil ] ;
-				sh:property [
-					sh:path rdf:first ;
-					sh:maxCount 1 ;
-					sh:minCount 1 ;
-				] ;
-				sh:property [
-					sh:path rdf:rest ;
-					sh:maxCount 1 ;
-					sh:minCount 1 ;
-				] ;
-			] ) .
+	sh:minListLength 0 .
 
 shsh:ShapeShape
 	a sh:NodeShape ;
@@ -431,8 +397,7 @@ shsh:xoneSubjectsShapeXonePropertyShape
 # A path of blank node path syntax, used to simulate recursion
 _:PathPath
 	sh:alternativePath (
-		( [ sh:zeroOrMorePath rdf:rest ] rdf:first )
-		( sh:alternativePath [ sh:zeroOrMorePath rdf:rest ] rdf:first )
+		# rdf-array: the members of sequence and alternative paths are checked with sh:memberShape
 		sh:inversePath
 		sh:zeroOrMorePath
 		sh:oneOrMorePath
@@ -452,7 +417,7 @@ shsh:PathShape
 shsh:PathNodeShape
 	sh:xone (                           # path-metarule
 			[ sh:nodeKind sh:IRI ]          # 2.3.1.1: Predicate path
-			[ sh:nodeKind sh:BlankNode ;    # 2.3.1.2: Sequence path
+			[                                 # 2.3.1.2: Sequence path (rdf-array: a sequence term, not a blank node)
 			  sh:memberShape shsh:PathShape ; # sequence-memberShape
 				sh:minListLength 2 ;            # sequence-minListLength
 			]

@@ -18,10 +18,11 @@
 <list-empty>
   rdf:type sht:EvalNodeExpr ;
   rdfs:label "Test of a list expression with an empty list which is really the constant rdf:nil" ;
+  rdfs:comment "rdf-array: () is the empty sequence, a list expression with no members, not the constant rdf:nil, so it outputs no nodes; the result is re-recorded from ( rdf:nil ) to ()" ;
   mf:action [
     sht:nodeExpr () ;
   ] ;
-  mf:result ( rdf:nil ) ;
+  mf:result () ;
   mf:status sht:approved ;
 .
 <list-literals>

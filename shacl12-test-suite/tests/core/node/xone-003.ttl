@@ -33,6 +33,7 @@ shsh:xoneSubjectsShapeXonePropertyShape
     ) ;
 .
 <xone-003>
+  rdfs:comment "rdf-array: rejected: sh:xone rdf:nil is not a list under SHACL-array (rdf:nil is an IRI; the empty list is the sequence ()), which makes the shapes graph ill-formed. The counterpart with sh:xone () is in data-shapes-contrib" ;
   rdf:type sht:Validate ;
   rdfs:label "Test of sh:xone at node shape 003" ;
   mf:action [
@@ -51,5 +52,5 @@ shsh:xoneSubjectsShapeXonePropertyShape
           sh:value rdf:nil ;
         ] ;
     ] ;
-  mf:status sht:approved ;
+  mf:status sht:rejected ;
 .

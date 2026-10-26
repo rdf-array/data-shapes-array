@@ -81,6 +81,7 @@ ex:list10
 .
 
 <memberShape-001>
+  rdfs:comment "rdf-array: rejected: the focus nodes are IRIs (or rdf:nil) spelled as rdf:first/rdf:rest ladders; under SHACL-array an IRI is never a SHACL list (a sequence term), so every focus node violates and the test no longer tells conforming lists from others. The counterpart, targeting sequence values, is in data-shapes-contrib" ;
   rdf:type sht:Validate ;
   rdfs:label "Test of sh:memberShape on node shape 001" ;
   mf:action [
@@ -170,5 +171,5 @@ ex:list10
           sh:value ex:list9 ;
         ] ;
     ] ;
-  mf:status sht:approved ;
+  mf:status sht:rejected ;
 . 
