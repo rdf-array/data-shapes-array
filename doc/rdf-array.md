@@ -2,7 +2,7 @@
 
 This fork of [w3c/data-shapes](https://github.com/w3c/data-shapes) carries the SHACL 1.0 test suite
 (`data-shapes-test-suite/`), the SHACL 1.2 test suite (`shacl12-test-suite/`) and shacl-shacl read as
-[SHACL-array](https://rdf-array.github.io/rdf-array/shacl-array.html): SHACL over
+[SHACL-array](https://rdf-array.github.io/rdf-array/docs/shacl-array.html): SHACL over
 [rdf-array](https://github.com/rdf-array/rdf-array), RDF whose data model has sequences as terms. In
 SHACL-array a SHACL list is a sequence term `( … )` and nothing else, an `rdf:first`/`rdf:rest` ladder
 spelled out in triples is ordinary triples, `()` is the empty list and `rdf:nil` an ordinary IRI; SHACL
